@@ -1,11 +1,14 @@
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "40%",
     margin: "30px auto",
     padding: "30px",
     textAlign: "center",
+    [theme.breakpoints.down("md")]: {
+      width: "70%",
+    },
   },
 
   showCard: {
@@ -13,6 +16,9 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-around",
     flexWrap: "wrap",
     margin: "50px",
+    [theme.breakpoints.down("md")]: {
+      margin: "0",
+    },
   },
 
   card: {
@@ -20,6 +26,9 @@ const useStyles = makeStyles(() => ({
     padding: "30px",
     margin: "50px",
     textAlign: "center",
+    [theme.breakpoints.down("md")]: {
+      width: "700px",
+    },
   },
 
   title: {

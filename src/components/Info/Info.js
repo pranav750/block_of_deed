@@ -45,7 +45,9 @@ const Info = () => {
             Welcome {userData.fullName}
           </Typography>
           <Typography variant="body1" component="p">
-            The smart contract of {userData.fullName} is stored at address{" "}
+            The smart contract of {userData.fullName} is stored at address
+          </Typography>
+          <Typography variant="body1" component="p" noWrap>
             {userData.address}
           </Typography>
         </CardContent>

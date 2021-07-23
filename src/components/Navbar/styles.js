@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
 
   toolbar: {
     margin: "0 40px",
+    [theme.breakpoints.down("md")]: {
+      margin: "0 15px",
+    },
   },
 
   desktop: {

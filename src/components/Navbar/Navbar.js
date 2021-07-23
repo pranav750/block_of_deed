@@ -48,7 +48,7 @@ const Navbar = () => {
         component={Link}
         to={`/admin/${address}`}
       >
-        Add Admin
+        Home
       </MenuItem>
       <MenuItem
         className={classes.extraMargin}
@@ -73,7 +73,7 @@ const Navbar = () => {
         onClick={handleClose}
         color="inherit"
         component={Link}
-        to="/:id/property/add"
+        to={`/admin/add/property/${address}`}
       >
         Add Property
       </MenuItem>
@@ -82,25 +82,16 @@ const Navbar = () => {
         onClick={handleClose}
         color="inherit"
         component={Link}
-        to="/:id/admin/update"
+        to={`/admin/update/property/${address}`}
       >
-        Update Admin
+        Update Property
       </MenuItem>
       <MenuItem
         className={classes.extraMargin}
         onClick={handleClose}
         color="inherit"
         component={Link}
-        to="/:id/owner/update"
-      >
-        Update Owner
-      </MenuItem>
-      <MenuItem
-        className={classes.extraMargin}
-        onClick={handleClose}
-        color="inherit"
-        component={Link}
-        to="/:adminId/:ownerId/properties"
+        to={`/admin/owner/properties/${address}`}
       >
         Get Properties
       </MenuItem>

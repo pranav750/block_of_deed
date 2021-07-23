@@ -9,22 +9,24 @@ import {
   FormControlLabel,
   FormLabel,
   Radio,
+  Card,
+  CardActionArea,
+  CardContent,
 } from "@material-ui/core";
-import { Fragment, useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { Fragment, useState } from "react";
 import ClearIcon from "@material-ui/icons/Clear";
 import main from "../../ethereum/main";
 import web3 from "../../ethereum/web3";
 import deployInstance from "../../ethereum/owner";
+import house from "../../images/house.gif";
 import useStyles from "./styles";
 
 const Update = () => {
   const classes = useStyles();
-  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [loan, setLoan] = useState("");
-  const [name, setName] = useState("");
+  const [owned, setOwned] = useState("");
   const [properties, setProperties] = useState([]);
   const [form, setForm] = useState({
     fullName: "",
@@ -60,14 +62,45 @@ const Update = () => {
         loanOngoing: property.loanCompleted,
         owned: property.owned,
       });
-      setName(form.fullName);
+
       setProperties(properties);
     } catch (error) {
       setMessage("Cannot get properties");
     }
 
-    setAddress("");
-    setFullName("");
+    setIsLoading(false);
+  };
+
+  const updateSubmitHandler = async (event) => {
+    event.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      console.log(loan + " " + owned);
+      const accounts = await web3.eth.getAccounts();
+      const owner = deployInstance(form.address);
+
+      if (loan === "Completed")
+        await owner.methods.loanCompleted(form.propertyNumber).send({
+          from: accounts[0],
+        });
+
+      if (owned === "Not Owned")
+        await owner.methods.movingOut(form.propertyNumber).send({
+          from: accounts[0],
+        });
+    } catch (error) {
+      setMessage("Form not updated");
+    }
+
+    setForm({
+      fullName: "",
+      address: "",
+      propertyNumber: 0,
+    });
+    setLoan("");
+    setOwned("");
     setIsLoading(false);
   };
 
@@ -179,27 +212,69 @@ const Update = () => {
                 <Typography variant="body1" component="p">
                   Area - {property.area} square feet
                 </Typography>
-                <form>
-                  <FormLabel component="legend">Loan</FormLabel>
-                  <RadioGroup
-                    name="loan"
-                    value={loan}
-                    onChange={(event) => setLoan(event.target.value)}
-                  >
-                    <FormControlLabel
-                      value="Ongoing"
-                      control={<Radio />}
-                      label="Ongoing"
-                    />
-                    <FormControlLabel
-                      value="Completed"
-                      control={<Radio />}
-                      label="Completed"
-                    />
-                  </RadioGroup>
-                </form>
               </CardContent>
             </CardActionArea>
+            <form
+              className={classes.extraMargin}
+              onSubmit={updateSubmitHandler}
+            >
+              <FormLabel component="legend">Loan</FormLabel>
+              <RadioGroup
+                name="loan"
+                value={loan}
+                onChange={(event) => setLoan(event.target.value)}
+              >
+                <FormControlLabel
+                  value="Ongoing"
+                  control={<Radio />}
+                  label="Ongoing"
+                />
+                <FormControlLabel
+                  value="Completed"
+                  control={<Radio />}
+                  label="Completed"
+                />
+              </RadioGroup>
+              <FormLabel component="legend">Owned</FormLabel>
+              <RadioGroup
+                name="owned"
+                value={owned}
+                onChange={(event) => setOwned(event.target.value)}
+              >
+                <FormControlLabel
+                  value="Owned"
+                  control={<Radio />}
+                  label="Owned"
+                />
+                <FormControlLabel
+                  value="Not Owned"
+                  control={<Radio />}
+                  label="Not Owned"
+                />
+              </RadioGroup>
+              {isLoading ? (
+                <CircularProgress className={classes.extraMargin} />
+              ) : (
+                <Button
+                  className={classes.extraMargin}
+                  type="submit"
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                >
+                  Submit
+                </Button>
+              )}
+              <Snackbar
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                open={message !== "" ? true : false}
+                message={message}
+                action={action}
+              />
+            </form>
           </Card>
         ))}
       </div>
