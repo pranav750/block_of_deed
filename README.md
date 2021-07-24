@@ -1,4 +1,4 @@
-This web application can be used to store real estate information of a person using smart contract on Rinkeby Test Network. This is a decentralisied web application built using HTML, CSS, JavaScript, React, Solidity.
+This web application can be used to store real estate information of a person using smart contract on Rinkeby Test Network. This is a decentralized web application built using HTML, CSS, JavaScript, React, Solidity.
 
 Live Demo :- https://block-of-deed.netlify.app
 
