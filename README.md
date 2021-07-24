@@ -2,6 +2,6 @@ This web application can be used to store real estate information of a person us
 
 Live Demo :- https://block-of-deed.netlify.app
 
-Warning - This web application will be sending transactions. That means MetaMask is mandatory for this web application.
+<strong>Warning - This web application will be sending transactions. That means MetaMask is mandatory for this web application.</strong>
 
 I'm listing all the functionalities of the web application below for those who don't have Metamask installed on their browser.
