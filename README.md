@@ -88,8 +88,5 @@ I'm listing all the functionalities of the web application below for those who d
 
 <strong>Logout -</strong>
 
-
   - To logout of the admin account.
 
-0x356B689E95473DA5dd00b6d4c1c3acd1dA51956a
-0x8B3D0bF3ddADE1530FBBb520d6Eb7e58A7380CFc
